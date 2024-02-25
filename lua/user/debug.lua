@@ -25,7 +25,7 @@ M.config = function()
   automatic_setup = true,
   handlers = {},
   ensure_installed = {
-   "delve",    -- delve ->  go
+   'delve', -- delve ->  go
    'python', -- debugpy
   },
  }
@@ -47,30 +47,39 @@ M.config = function()
  vim.keymap.set('n', '<leader>de', ':lua require("dapui").eval()<CR>')
  vim.keymap.set('n', '<leader>dc', ':lua require("dapui").close()<CR>')
  vim.keymap.set('n', '<leader>do', ':lua require("dapui").open()<CR>')
+ vim.keymap.set('n', '<leader>dw', ':lua require("dapui").float_element("watches")<CR>')
+ vim.keymap.set('n', '<leader>ds', ':lua require("dapui").float_element("scopes")<CR>')
+ vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
 
  dapui.setup {
-  icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-  controls = {
-   icons = {
-    pause = '⏸',
-    play = '▶',
-    step_into = '⏎',
-    step_over = '⏭',
-    step_out = '⏮',
-    step_back = 'b',
-    run_last = '▶▶',
-    terminate = '⏹',
-    disconnect = '⏏',
+  layouts = {
+   {
+    elements = {
+     { id = 'repl', size = 0.30 },
+     { id = 'console', size = 0.70 },
+    },
+    size = 20,
+    position = 'bottom',
    },
   },
  }
 
- vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
- --dap.listeners.after.event_initialized['dapui_config'] = dapui.open
- --dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+ dap.listeners.after.event_initialized['dapui_confg'] = require('dapui').open
 
  require('dap-go').setup()
  require('dap-python').setup()
  vim.api.nvim_set_keymap('n', '<leader>ad', "<cmd>lua require('custom.debug').attach_to_debug()<CR>", { noremap = true, silent = true })
+
+ require('cmp').setup {
+  enabled = function()
+   return vim.api.nvim_buf_get_option(0, 'buftype') ~= 'prompt' or require('cmp_dap').is_dap_buffer()
+  end,
+ }
+
+ require('cmp').setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
+  sources = {
+   { name = 'dap' },
+  },
+ })
 end
 return M
