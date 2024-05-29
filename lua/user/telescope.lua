@@ -19,13 +19,13 @@ local M = {
 }
 
 local function filenameFirst(_, path)
-    local tail = vim.fs.basename(path)
-    local parent = vim.fs.dirname(path)
-    if parent == "." then
-      return tail
-    end
-    return string.format("{%s}\t\t%s", tail, parent)
-  end
+ local tail = vim.fs.basename(path)
+ local parent = vim.fs.dirname(path)
+ if parent == '.' then
+  return tail
+ end
+ return string.format('{%s}\t\t%s', tail, parent)
+end
 function M.config()
  local actions = require 'telescope.actions'
  require('telescope').setup {
@@ -46,34 +46,33 @@ function M.config()
    },
    file_ignore_patterns = { 'venv', 'build', '__pycache__', '*.egg-info', 'target', 'mvnw.cmd', 'mvnw' },
   },
-    pickers = {
-      live_grep = {
-        theme = "ivy",
- 	path_display = filenameFirst,
-      },
-      find_files = {
-        theme = "dropdown",
-        path_display = filenameFirst,
-      },
+  pickers = {
+   live_grep = {
+    theme = 'ivy',
+    path_display = filenameFirst,
+   },
+   find_files = {
+    theme = 'dropdown',
+    path_display = filenameFirst,
+   },
 
+   planets = {
+    show_pluto = true,
+    show_moon = true,
+   },
 
-      planets = {
-        show_pluto = true,
-        show_moon = true,
-      },
-
-      -- colorscheme = {
-      --   enable_preview = true,
-      -- },
-    },
-    extensions = {
-      fzf = {
-        fuzzy = true, -- false will only do exact matching
-        override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true, -- override the file sorter
-        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-      },
-    },
+   -- colorscheme = {
+   --   enable_preview = true,
+   -- },
+  },
+  extensions = {
+   fzf = {
+    fuzzy = true, -- false will only do exact matching
+    override_generic_sorter = true, -- override the generic sorter
+    override_file_sorter = true, -- override the file sorter
+    case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+   },
+  },
  }
  -- Enable telescope fzf native, if installed
  pcall(require('telescope').load_extension, 'fzf')
@@ -124,7 +123,7 @@ function M.config()
   require('telescope.builtin').live_grep {
    grep_open_files = true,
    prompt_title = 'Live Grep in Open Files',
-	winblend = 10,
+   winblend = 10,
   }
  end
  vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]earch [/] in Open Files' })

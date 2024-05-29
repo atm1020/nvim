@@ -22,19 +22,33 @@ local M = {
    },
   },
   { 'j-hui/fidget.nvim', opts = {} },
-  'folke/neodev.nvim',
+  { 'folke/neodev.nvim' },
   {
-   'atm1020/nvim-java',
+   'nvim-java/nvim-java',
    dir = '~/workspace/nvim-java/',
-   -- branch = 'poc',
    dependencies = {
     'nvim-java/lua-async-await',
-    { 'atm1020/nvim-java-core', dir = '~/workspace/nvim-java-core/' },
-    'nvim-java/nvim-java-test',
-    'nvim-java/nvim-java-dap',
+    'nvim-java/nvim-java-refactor',
+    {
+     'nvim-java/nvim-java-test',
+     -- dir = '~/workspace/nvim-java-test/'
+    },
+    {
+     'atm1020/nvim-java-core',
+     -- dir = '~/workspace/nvim-java-core/'
+    },
+    {
+     'nvim-java/nvim-java-dap',
+     -- dir = '~/workspace/nvim-java-dap/'
+    },
     'MunifTanjim/nui.nvim',
     'neovim/nvim-lspconfig',
     'mfussenegger/nvim-dap',
+    'nvim-lua/plenary.nvim',
+    {
+     'stevearc/overseer.nvim',
+     opts = {},
+    },
    },
   },
  },
@@ -82,7 +96,21 @@ function M.config()
   -- yamlls = {},
   pyright = {},
   jdtls = {},
-  azure_pipelines_ls = {},
+  -- azure_pipelines_ls = {
+  -- 	-- settings = {
+  -- 	--     yaml = {
+  -- 	--         schemas = {
+  -- 	--             ["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
+  -- 	--                 "/azure-pipeline*.y*l",
+  -- 	--                 "/*.azure*",
+  -- 	--                 "Azure-Pipelines/**/*.y*l",
+  -- 	--                 "Pipelines/*.y*l",
+  -- 	--                 "templates/*.y*l",
+  -- 	--             },
+  -- 	--         },
+  -- 	--     },
+  -- 	-- },
+  -- },
   lua_ls = {
    Lua = {
     workspace = { checkThirdParty = false },

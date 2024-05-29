@@ -3,6 +3,7 @@ local M = {
  'nvim-treesitter/nvim-treesitter',
  dependencies = {
   'nvim-treesitter/nvim-treesitter-textobjects',
+  'nvim-treesitter/playground',
  },
 }
 
@@ -88,6 +89,9 @@ function M.config()
      ['<leader>AA'] = '@parameter.inner',
     },
    },
+  },
+  playground = {
+   enable = true,
   },
  }
 end

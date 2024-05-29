@@ -4,6 +4,7 @@ require 'user.remap'
 
 spec 'user.planery'
 spec 'user.neodev'
+spec 'user.neotest'
 spec 'user.color'
 spec 'user.debug'
 spec 'user.harpoon'

@@ -1,3 +1,10 @@
+require('neotest').setup {
+ adapters = {
+  require 'neotest-python' {
+   python = '.venv/bin/python',
+  },
+ },
+}
 --require("neotest").setup({
 --  adapters = {
 --    require("neotest-python")({
