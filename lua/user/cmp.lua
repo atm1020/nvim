@@ -12,6 +12,7 @@ local M = {
 
   -- Adds a number of user-friendly snippets
   'rafamadriz/friendly-snippets',
+  'hrsh7th/cmp-buffer',
  },
 }
 
@@ -46,6 +47,7 @@ function M.config()
    { name = 'nvim_lsp' },
    { name = 'luasnip' },
    { name = 'path' },
+  { name = 'buffer' },
   },
  }
 end
