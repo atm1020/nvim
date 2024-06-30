@@ -21,6 +21,7 @@ spec 'user.lsp'
 spec 'user.cmp'
 -- spec 'user.otter'
 spec 'user.snippet'
+spec 'user.dadbod'
 --Spec 'user.autoformat'
 
 require 'user.lazy'
