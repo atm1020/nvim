@@ -13,44 +13,10 @@ local M = {
   },
   {
    'williamboman/mason-lspconfig.nvim',
-   opts = {
-    handlers = {
-     ['jdtls'] = function()
-      require('java').setup()
-     end,
-    },
-   },
+   opts = {},
   },
   { 'j-hui/fidget.nvim', opts = {} },
   { 'folke/neodev.nvim' },
-  {
-   'nvim-java/nvim-java',
-   dir = '~/workspace/nvim-java/',
-   dependencies = {
-    'nvim-java/lua-async-await',
-    'nvim-java/nvim-java-refactor',
-    {
-     'nvim-java/nvim-java-test',
-     -- dir = '~/workspace/nvim-java-test/'
-    },
-    {
-     'atm1020/nvim-java-core',
-     -- dir = '~/workspace/nvim-java-core/'
-    },
-    {
-     'nvim-java/nvim-java-dap',
-     -- dir = '~/workspace/nvim-java-dap/'
-    },
-    'MunifTanjim/nui.nvim',
-    'neovim/nvim-lspconfig',
-    'mfussenegger/nvim-dap',
-    'nvim-lua/plenary.nvim',
-    {
-     'stevearc/overseer.nvim',
-     opts = {},
-    },
-   },
-  },
  },
  opts = {},
 }
@@ -92,25 +58,10 @@ function M.config()
  -- Enable the following language servers
  local servers = {
   -- clangd = {},
-  gopls = {},
-  -- yamlls = {},
+  -- gopls = {},
+  yamlls = {},
   pyright = {},
   jdtls = {},
-  -- azure_pipelines_ls = {
-  -- 	-- settings = {
-  -- 	--     yaml = {
-  -- 	--         schemas = {
-  -- 	--             ["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
-  -- 	--                 "/azure-pipeline*.y*l",
-  -- 	--                 "/*.azure*",
-  -- 	--                 "Azure-Pipelines/**/*.y*l",
-  -- 	--                 "Pipelines/*.y*l",
-  -- 	--                 "templates/*.y*l",
-  -- 	--             },
-  -- 	--         },
-  -- 	--     },
-  -- 	-- },
-  -- },
   lua_ls = {
    Lua = {
     workspace = { checkThirdParty = false },
@@ -129,6 +80,8 @@ function M.config()
   ensure_installed = vim.tbl_keys(servers),
  }
 
+ require('java').setup()
+ local lspconfig = require 'lspconfig'
  mason_lspconfig.setup_handlers {
   function(server_name)
    require('lspconfig')[server_name].setup {
@@ -138,6 +91,25 @@ function M.config()
     filetypes = (servers[server_name] or {}).filetypes,
    }
   end,
+ }
+
+ lspconfig.azure_pipelines_ls.setup {
+  on_attach = on_attach,
+  root_dir = lspconfig.util.root_pattern { 'azure-pipeline.yaml', 'compute-ec-functions-azurepipeline.yml', '.git' },
+  settings = {
+   yaml = {
+    schemas = {
+     ['https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json'] = {
+      -- "azure-pipeline*.y*l",
+      -- "/*.azure*",
+      -- "Azure-Pipelines/**/*.y*l",
+      -- The schemas above (except the link) don't have an impact.
+      -- The one below is the folder where all the pipelines you will have.
+      '*.y*l',
+     },
+    },
+   },
+  },
  }
 end
 
