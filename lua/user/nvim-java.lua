@@ -1,6 +1,6 @@
 local M = {
  'nvim-java/nvim-java',
- -- dir = '~/workspace/nvim-java-origin/',
+ dir = '~/workspace/nvim-java-origin/',
  dependencies = {
   'nvim-java/lua-async-await',
   'nvim-java/nvim-java-refactor',
