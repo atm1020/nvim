@@ -13,6 +13,8 @@ local M = {
   },
   {
    'williamboman/mason-lspconfig.nvim',
+  { 'towolf/vim-helm',       ft = 'helm' },
+  { "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile", "BufEnter" } },
    opts = {},
   },
   { 'j-hui/fidget.nvim', opts = {} },
@@ -39,7 +41,7 @@ function M.config()
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-  -- nmap('D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+  nmap('D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
   nmap('ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -61,7 +63,7 @@ function M.config()
   -- gopls = {},
   yamlls = {},
   pyright = {},
-  jdtls = {},
+  -- jdtls = {},
   lua_ls = {
    Lua = {
     workspace = { checkThirdParty = false },
@@ -92,25 +94,55 @@ function M.config()
    }
   end,
  }
+local lspconfig = require('lspconfig')
 
- lspconfig.azure_pipelines_ls.setup {
-  on_attach = on_attach,
-  root_dir = lspconfig.util.root_pattern { 'azure-pipeline.yaml', 'compute-ec-functions-azurepipeline.yml', '.git' },
-  settings = {
-   yaml = {
-    schemas = {
-     ['https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json'] = {
-      -- "azure-pipeline*.y*l",
-      -- "/*.azure*",
-      -- "Azure-Pipelines/**/*.y*l",
-      -- The schemas above (except the link) don't have an impact.
-      -- The one below is the folder where all the pipelines you will have.
-      '*.y*l',
-     },
+lspconfig.helm_ls.setup {
+on_attach = on_attach,
+settings = {
+  ['helm-ls'] = {
+    logLevel = "info",
+    valuesFiles = {
+      mainValuesFile = "values.yaml",
+      lintOverlayValuesFile = "values.lint.yaml",
+      additionalValuesFilesGlobPattern = "values*.yaml"
+    },
+    yamlls = {
+      enabled = true,
+      diagnosticsLimit = 50,
+      showDiagnosticsDirectly = false,
+      path = "yaml-language-server",
+      config = {
+        schemas = {
+          kubernetes = "templates/**",
+        },
+        completion = true,
+        hover = true,
+	documentSymbols = true,
+        -- any other config from https://github.com/redhat-developer/yaml-language-server#language-server-settings
+      }
+    }
+  }
+}
+}
+
+lspconfig.azure_pipelines_ls.setup {
+ on_attach = on_attach,
+ root_dir = lspconfig.util.root_pattern { 'azure-pipeline.yaml', 'compute-ec-functions-azurepipeline.yml', '.git' },
+ settings = {
+  yaml = {
+   schemas = {
+    ['https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json'] = {
+     -- "azure-pipeline*.y*l",
+     -- "/*.azure*",
+     -- "Azure-Pipelines/**/*.y*l",
+     -- The schemas above (except the link) don't have an impact.
+     -- The one below is the folder where all the pipelines you will have.
+     '*.y*l',
     },
    },
   },
- }
+ },
+}
 end
 
 return M
