@@ -35,6 +35,8 @@ keymap('n', '<C-Down>', ':resize +2<CR>', { noremap = true })
 keymap('n', '<C-Left>', ':vertical resize -2<CR>', { noremap = true })
 keymap('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true })
 
--- harpoon use <C-j> <C-k> <C-o> <C-i> for navigation so i need to remap them ...
-keymap('n', '<A-o>', '<C-o>')
-keymap('n', '<A-i>', '<C-i>')
+keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+keymap("n", "<leader>f", vim.lsp.buf.format)
+
+keymap("x", "<leader>p", [["_dP]])
+keymap({"n", "v"}, "<leader>y", [["+y]])
