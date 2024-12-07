@@ -36,7 +36,11 @@ keymap('n', '<C-Left>', ':vertical resize -2<CR>', { noremap = true })
 keymap('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true })
 
 keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+keymap("n", "<leader>n", "<cmd>silent !tmux switch -n<CR>") -- next window
+keymap("n", "<leader>p", "<cmd>silent !tmux switch -p<CR>") -- previous window
+keymap("n", "<leader>l", "<cmd>silent !tmux switch -l<CR>") -- last window
+
 keymap("n", "<leader>f", vim.lsp.buf.format)
 
 keymap("x", "<leader>p", [["_dP]])
-keymap({"n", "v"}, "<leader>y", [["+y]])
+keymap({ "n", "v" }, "<leader>y", [["+y]])
