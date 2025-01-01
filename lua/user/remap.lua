@@ -8,6 +8,10 @@ vim.g.maplocalleader = ' '
 keymap('n', '<leader>cc', vim.cmd.exit)
 keymap('i', 'jk', '<ESC>')
 
+-- Move selected line / block of text in visual mode
+keymap('v', "K", ":m '<-2<CR>gv=gv")
+keymap('v', "J", ":m '>+1<CR>gv=gv")
+
 keymap('n', '<C-h>', '<C-w>h')
 keymap('n', '<C-j>', '<C-w>j')
 keymap('n', '<C-k>', '<C-w>k')
