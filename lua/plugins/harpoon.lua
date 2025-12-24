@@ -11,10 +11,9 @@ function M.config()
  local ui = require 'harpoon.ui'
 
  local wk = require 'which-key'
-  wk.add({
-    { "<leader>a", mark.add_file, desc = "Harpoon add file" }
+ wk.add {
+  { '<leader>a', mark.add_file, desc = 'Harpoon add file' },
  }
-	)
 
  vim.keymap.set('n', '<C-e>', ui.toggle_quick_menu)
  vim.keymap.set('n', '<A-u>', function()
@@ -30,4 +29,5 @@ function M.config()
   ui.nav_file(4)
  end)
 end
+
 return M

@@ -5,7 +5,7 @@ local M = {
 }
 
 function M.config()
- vim.cmd.colorscheme 'onedark'
+ -- vim.cmd.colorscheme 'onedark'
  require('onedark').setup {
   -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
   style = 'darker',

@@ -1,7 +1,8 @@
 local M = {
- 'github/copilot.vim',
+ -- 'github/copilot.vim',
 }
 
 function M.config() end
 
-return M
+return {}
+

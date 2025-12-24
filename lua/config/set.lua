@@ -7,6 +7,7 @@ vim.wo.number = true
 -- Relative line nubers
 vim.o.relativenumber = true
 
+vim.opt.showtabline = 1 -- always show tabs
 -- Enable mouse mode
 vim.o.mouse = 'a'
 -- Sync clipboard between OS and Neovim.

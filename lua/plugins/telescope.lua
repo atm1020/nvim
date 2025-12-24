@@ -1,6 +1,6 @@
 local M = {
 	'nvim-telescope/telescope.nvim',
-	branch = '0.1.x',
+	-- branch = '0.1.x',
 	dependencies = {
 		'nvim-lua/plenary.nvim',
 		-- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -92,7 +92,7 @@ function M.config()
 		end
 		-- Find the Git root directory from the current file's path
 		local git_root = vim.fn.systemlist('git -C ' ..
-		vim.fn.escape(current_dir, ' ') .. ' rev-parse --show-toplevel')[1]
+			vim.fn.escape(current_dir, ' ') .. ' rev-parse --show-toplevel')[1]
 		if vim.v.shell_error ~= 0 then
 			print 'Not a git repository. Searching on current working directory'
 			return cwd
@@ -139,6 +139,7 @@ function M.config()
 	vim.keymap.set('n', '<leader>go', require('telescope.builtin').git_status, { desc = '[G]it [O]pen Changed file' })
 	vim.keymap.set('n', '<leader>gb', require('telescope.builtin').git_branches, { desc = '[G]it checkout [B]ranch' })
 	vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_stash, { desc = '[G]it checkout [S]tash' })
+
 end
 
 return M

@@ -28,25 +28,19 @@ function M.config()
   end, { desc = '[/] Fuzzily search in current buffer' })
  end
 
- local Terminal = require('toggleterm.terminal').Terminal
- local lazygit = Terminal:new {
-  cmd = 'lazygit',
-  hidden = true,
-  direction = 'float',
-  float_opts = {
-   border = 'none',
-   width = 100000,
-   height = 100000,
-  },
-  on_open = function(_)
-   vim.cmd 'startinsert!'
-  end,
-  on_close = function(_) end,
-  count = 99,
- }
+ local function open_tui(cmd, keymap, desc, mode)
+  local Terminal = require('toggleterm.terminal').Terminal
+  local tui = Terminal:new({
+	  cmd = cmd,
+	  hidden = true,
+  })
 
- vim.keymap.set('n', '<leader>gg', function()
-  lazygit:toggle()
- end, { desc = '[G]it [G]ui' })
+  vim.keymap.set(mode, keymap, function()
+   tui:toggle()
+  end, { desc = desc , noremap = true, silent = true})
+ end
+
+ open_tui('lazygit', '<leader>gg', '[G]it [G]ui', 'n')
 end
+
 return M

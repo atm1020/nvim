@@ -1,27 +1,5 @@
-local spec = require('user.launch').spec
-require 'user.set'
-require 'user.remap'
-
-spec 'user.planery'
-spec 'user.neodev'
-spec 'user.neotest'
-spec 'user.color'
-spec 'user.debug'
-spec 'user.harpoon'
-spec 'user.telescope'
-spec 'user.nvim-tree'
-spec 'user.toogleterm'
-spec 'user.undotree'
-spec 'user.which-key'
-spec 'user.copilot'
-spec 'user.treesitter'
-spec 'user.comment'
-spec 'user.nvim-java'
-spec 'user.lsp'
-spec 'user.cmp'
--- spec 'user.otter'
-spec 'user.snippet'
-spec 'user.dadbod'
---Spec 'user.autoformat'
-
-require 'user.lazy'
+require("config.set")
+require("config.remap")
+require("config.lazy")
+require("config.colorscheme")
+require("config.lsp")

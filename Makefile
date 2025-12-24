@@ -6,8 +6,8 @@ FTPLUGIN=./ftplugin
 all: format lint
 
 lint: 
-	luacheck ${LUA} ${FTPLUGIN} --globals vim
+	luacheck ${LUA}  --globals vim
 
 format:
-	stylua ${LUA} ${FTPLUGIN} --config-path=.stylua.toml
+	stylua ${LUA}  --config-path=.stylua.toml
 
